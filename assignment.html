@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Song</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            transition: background-color 0.5s;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #video-container {
+            max-width: 800px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ccc;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Favorite Song</h1>
+    
+    <button id="play-pause">Play</button>
+    <button id="change-color">Change Color</button>
+
+    <div id="video-container">
+        <iframe id="video-iframe" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        function animateElement() {
+            var element = document.getElementById("video-container");
+            element.style.opacity = "1";
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            animateElement();
+        });
+
+        var video = document.getElementById('video-iframe');
+        var playPauseButton = document.getElementById('play-pause');
+        var changeColorButton = document.getElementById('change-color');
+        var body = document.querySelector('body');
+
+        playPauseButton.addEventListener('click', function() {
+            if (video.contentWindow.postMessage) {
+                video.contentWindow.postMessage('{"event":"command","func":"' + ('toggleVideo') + '","args":""}', '*');
+            }
+        });
+
+        changeColorButton.addEventListener('click', function() {
+            var randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            body.style.backgroundColor = randomColor;
+        });
+    </script>
+</body>
+</html>
