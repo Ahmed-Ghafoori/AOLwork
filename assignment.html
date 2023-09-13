@@ -45,7 +45,6 @@
 <body>
     <h1>My Favorite Song</h1>
     
-    <button id="play-pause">Play</button>
     <button id="change-color">Change Color</button>
 
     <div id="video-container">
@@ -63,15 +62,10 @@
         });
 
         var video = document.getElementById('video-iframe');
-        var playPauseButton = document.getElementById('play-pause');
         var changeColorButton = document.getElementById('change-color');
         var body = document.querySelector('body');
 
-        playPauseButton.addEventListener('click', function() {
-            if (video.contentWindow.postMessage) {
-                video.contentWindow.postMessage('{"event":"command","func":"' + ('toggleVideo') + '","args":""}', '*');
-            }
-        });
+
 
         changeColorButton.addEventListener('click', function() {
             var randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
